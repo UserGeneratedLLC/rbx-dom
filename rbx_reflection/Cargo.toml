@@ -17,5 +17,5 @@ edition = "2018"
 [dependencies]
 rbx_types = { version = "3.1.0", path = "../rbx_types", features = ["serde"] }
 
-serde = { version = "1.0.137", features = ["derive"] }
-thiserror = "1.0.31"
+serde = { version = "1.0.228", features = ["derive"] }
+thiserror = "1.0.69"

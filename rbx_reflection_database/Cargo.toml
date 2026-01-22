@@ -22,7 +22,7 @@ debug_always_use_bundled = []
 [dependencies]
 rbx_reflection = { version = "6.1.0", path = "../rbx_reflection" }
 
-serde = "1.0.137"
-rmp-serde = "1.1.1"
+serde = "1.0.228"
+rmp-serde = "1.3.1"
 dirs = "5.0.1"
-log = "0.4.20"
+log = "0.4.29"

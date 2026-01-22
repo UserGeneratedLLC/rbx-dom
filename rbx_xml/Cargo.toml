@@ -19,14 +19,14 @@ rbx_dom_weak = { version = "4.1.0", path = "../rbx_dom_weak" }
 rbx_reflection = { version = "6.1.0", path = "../rbx_reflection" }
 rbx_reflection_database = { version = "2.0.2", path = "../rbx_reflection_database" }
 
-ahash = "0.8.11"
-base64 = "0.13.0"
-log = "0.4.17"
-xml-rs = "0.8.4"
+ahash = "0.8.12"
+base64 = "0.13.1"
+log = "0.4.29"
+xml-rs = "0.8.28"
 
 [dev-dependencies]
-env_logger = "0.9.0"
-insta = { version = "1.14.1", features = ["yaml"] }
+env_logger = "0.9.3"
+insta = { version = "1.46.1", features = ["yaml"] }
 heck = "0.4.1"
 rbx_reflection_database = { path = "../rbx_reflection_database", features = [
     "debug_always_use_bundled",
