@@ -226,8 +226,9 @@ mod test {
 
     #[test]
     fn decode_defaults() {
+        use base64::{engine::general_purpose, Engine as _};
         // Default MaterialColors but base64
-        let blob = base64::decode("AAAAAAAAan8/P39rf2Y/ilY+j35fi21PZmxvZbDqw8faiVpHOi4kHh4lZlw76JxKc3trhHtagcLgc4RKxr21zq2UlJSM").unwrap();
+        let blob = general_purpose::STANDARD.decode("AAAAAAAAan8/P39rf2Y/ilY+j35fi21PZmxvZbDqw8faiVpHOi4kHh4lZlw76JxKc3trhHtagcLgc4RKxr21zq2UlJSM").unwrap();
         let colors = MaterialColors::decode(&blob).unwrap();
 
         for color in MATERIAL_ORDER {
@@ -241,11 +242,12 @@ mod test {
 
     #[test]
     fn decode_sequential() {
+        use base64::{engine::general_purpose, Engine as _};
         use std::convert::TryFrom;
 
         // MaterialColors but every color is sequentially laid out
         // Grass = [1, 2, 3], Slate = [4, 5, 6], etc.
-        let blob = base64::decode("AAAAAAAAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/").unwrap();
+        let blob = general_purpose::STANDARD.decode("AAAAAAAAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/").unwrap();
         let colors = MaterialColors::decode(&blob).unwrap();
 
         for (n, color) in MATERIAL_ORDER.iter().enumerate() {
@@ -262,14 +264,16 @@ mod test {
 
     #[test]
     fn encode_defaults() {
+        use base64::{engine::general_purpose, Engine as _};
         let colors = MaterialColors::new();
-        let blob = base64::encode(colors.encode());
+        let blob = general_purpose::STANDARD.encode(colors.encode());
 
         assert_eq!(blob, "AAAAAAAAan8/P39rf2Y/ilY+j35fi21PZmxvZbDqw8faiVpHOi4kHh4lZlw76JxKc3trhHtagcLgc4RKxr21zq2UlJSM");
     }
 
     #[test]
     fn encode_sequential() {
+        use base64::{engine::general_purpose, Engine as _};
         use std::convert::TryFrom;
 
         let mut colors = MaterialColors::new();
@@ -281,7 +285,7 @@ mod test {
 
             colors.set_color(*color, Color3uint8::new(r, g, b))
         }
-        let blob = base64::encode(colors.encode());
+        let blob = general_purpose::STANDARD.encode(colors.encode());
 
         assert_eq!(blob, "AAAAAAAAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/");
     }
