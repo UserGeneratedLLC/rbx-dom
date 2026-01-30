@@ -219,8 +219,9 @@ mod tests {
     #[cfg(feature = "serde")]
     fn test_round_trip_attributes() {
         use base64::{engine::general_purpose, Engine as _};
-        let attributes_value =
-            general_purpose::STANDARD.decode(ATTRIBUTES_BASE64).expect("bad base64 for attributes");
+        let attributes_value = general_purpose::STANDARD
+            .decode(ATTRIBUTES_BASE64)
+            .expect("bad base64 for attributes");
 
         let attributes = Attributes::from_reader(&attributes_value[..])
             .expect("couldn't deserialize attributes");
