@@ -159,7 +159,8 @@ pub(crate) mod serde_impl {
     impl Serialize for SharedString {
         fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
             if serializer.is_human_readable() {
-                let encoded = base64::encode(self.data());
+                use base64::{engine::general_purpose, Engine as _};
+                let encoded = general_purpose::STANDARD.encode(self.data());
 
                 serializer.serialize_str(&encoded)
             } else {
@@ -178,7 +179,8 @@ pub(crate) mod serde_impl {
         }
 
         fn visit_str<E: Error>(self, str: &str) -> Result<Self::Value, E> {
-            let buffer = base64::decode(str).map_err(E::custom)?;
+            use base64::{engine::general_purpose, Engine as _};
+            let buffer = general_purpose::STANDARD.decode(str).map_err(E::custom)?;
             Ok(SharedString::new(buffer))
         }
     }

@@ -20,14 +20,14 @@ rbx_reflection = { version = "6.1.0", path = "../rbx_reflection" }
 rbx_reflection_database = { version = "2.0.2", path = "../rbx_reflection_database" }
 
 ahash = "0.8.12"
-base64 = "0.13.1"
+base64 = "0.22"
 log = "0.4.29"
 xml-rs = "0.8.28"
 
 [dev-dependencies]
-env_logger = "0.9.3"
+env_logger = "0.11"
 insta = { version = "1.46.1", features = ["yaml"] }
-heck = "0.4.1"
+heck = "0.5"
 rbx_reflection_database = { path = "../rbx_reflection_database", features = [
     "debug_always_use_bundled",
 ] }

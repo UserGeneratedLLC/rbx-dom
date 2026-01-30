@@ -281,12 +281,13 @@ fn serialize_shared_strings<W: Write>(
         let full_hash = value.hash();
         let truncated_hash = &full_hash.as_bytes()[..16];
 
+        use base64::{engine::general_purpose, Engine as _};
         writer.write(
             XmlWriteEvent::start_element("SharedString")
-                .attr("md5", &base64::encode(truncated_hash)),
+                .attr("md5", &general_purpose::STANDARD.encode(truncated_hash)),
         )?;
 
-        writer.write_string(&base64::encode(value.data()))?;
+        writer.write_string(&general_purpose::STANDARD.encode(value.data()))?;
         writer.end_element()?;
     }
 

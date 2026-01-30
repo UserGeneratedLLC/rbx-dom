@@ -14,8 +14,9 @@ pub fn write_material_colors<W: Write>(
     property_name: &str,
     value: &MaterialColors,
 ) -> Result<(), EncodeError> {
+    use base64::{engine::general_purpose, Engine as _};
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
-    writer.write_string(&base64::encode(value.encode()))?;
+    writer.write_string(&general_purpose::STANDARD.encode(value.encode()))?;
     writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())

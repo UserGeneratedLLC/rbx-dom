@@ -20,8 +20,9 @@ pub fn write_attributes<W: Write>(
         return Err(writer.error(write_error));
     }
 
+    use base64::{engine::general_purpose, Engine as _};
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
-    writer.write_string(&base64::encode(&buffer))?;
+    writer.write_string(&general_purpose::STANDARD.encode(&buffer))?;
     writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())

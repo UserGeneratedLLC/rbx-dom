@@ -16,8 +16,9 @@ pub fn write_tags<W: Write>(
 ) -> Result<(), EncodeError> {
     let encoded = value.encode();
 
+    use base64::{engine::general_purpose, Engine as _};
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
-    writer.write_string(&base64::encode(encoded))?;
+    writer.write_string(&general_purpose::STANDARD.encode(encoded))?;
     writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())
