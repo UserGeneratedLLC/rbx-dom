@@ -1,0 +1,10 @@
+---
+source: rbx-dom/rbx_dom_weak/src/viewer.rs
+expression: "DomViewer::new().view(&dom)"
+---
+referent: referent-0
+name: Root
+class: ObjectValue
+properties:
+  Value: referent-0
+children: []
