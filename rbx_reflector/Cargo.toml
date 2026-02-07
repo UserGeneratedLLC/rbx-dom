@@ -16,8 +16,8 @@ rbx_reflection = { path = "../rbx_reflection" }
 rbx_types = { path = "../rbx_types", features = ["serde"] }
 rbx_xml = { path = "../rbx_xml" }
 
-anyhow = "1.0.100"
-clap = { version = "4.5.54", features = ["derive"] }
+anyhow = "1.0.101"
+clap = { version = "4.5.57", features = ["derive"] }
 env_logger = "0.10.2"
 log = "0.4.29"
 notify = "5.2.0"
