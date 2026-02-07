@@ -258,7 +258,7 @@ mod test {
     #[test]
     fn not_human_roundtrip() {
         let uid = UniqueId::new(0x1337_0000, 0xfaca_de00, 0x1020_3040_5060_7080);
-        let ser = bincode::serde::encode_to_vec(&uid, bincode::config::standard()).unwrap();
+        let ser = bincode::serde::encode_to_vec(uid, bincode::config::standard()).unwrap();
         let (de, _): (UniqueId, usize) =
             bincode::serde::decode_from_slice(&ser, bincode::config::standard()).unwrap();
 

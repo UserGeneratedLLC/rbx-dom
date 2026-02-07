@@ -254,19 +254,19 @@ mod serde_test {
     #[test]
     fn non_human() {
         let empty = Faces::empty();
-        let ser_empty = bincode::serde::encode_to_vec(&empty, bincode::config::standard()).unwrap();
+        let ser_empty = bincode::serde::encode_to_vec(empty, bincode::config::standard()).unwrap();
         let (de_empty, _): (Faces, usize) =
             bincode::serde::decode_from_slice(&ser_empty, bincode::config::standard()).unwrap();
         assert_eq!(empty, de_empty);
 
         let right = Faces::RIGHT;
-        let ser_right = bincode::serde::encode_to_vec(&right, bincode::config::standard()).unwrap();
+        let ser_right = bincode::serde::encode_to_vec(right, bincode::config::standard()).unwrap();
         let (de_right, _): (Faces, usize) =
             bincode::serde::decode_from_slice(&ser_right, bincode::config::standard()).unwrap();
         assert_eq!(right, de_right);
 
         let all = Faces::all();
-        let ser_all = bincode::serde::encode_to_vec(&all, bincode::config::standard()).unwrap();
+        let ser_all = bincode::serde::encode_to_vec(all, bincode::config::standard()).unwrap();
         let (de_all, _): (Faces, usize) =
             bincode::serde::decode_from_slice(&ser_all, bincode::config::standard()).unwrap();
         assert_eq!(all, de_all);

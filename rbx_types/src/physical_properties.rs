@@ -256,7 +256,7 @@ mod serde_test {
     fn bincode_default() {
         let default = PhysicalProperties::Default;
 
-        let ser = bincode::serde::encode_to_vec(&default, bincode::config::standard()).unwrap();
+        let ser = bincode::serde::encode_to_vec(default, bincode::config::standard()).unwrap();
         let (de, _): (PhysicalProperties, usize) =
             bincode::serde::decode_from_slice(&ser, bincode::config::standard()).unwrap();
 
@@ -274,7 +274,7 @@ mod serde_test {
             acoustic_absorption: 1.0,
         });
 
-        let ser = bincode::serde::encode_to_vec(&custom, bincode::config::standard()).unwrap();
+        let ser = bincode::serde::encode_to_vec(custom, bincode::config::standard()).unwrap();
         let (de, _): (PhysicalProperties, usize) =
             bincode::serde::decode_from_slice(&ser, bincode::config::standard()).unwrap();
 

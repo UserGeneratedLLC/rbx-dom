@@ -196,7 +196,7 @@ mod serde_test {
     fn non_human() {
         let value = Ref::new();
 
-        let ser = bincode::serde::encode_to_vec(&value, bincode::config::standard()).unwrap();
+        let ser = bincode::serde::encode_to_vec(value, bincode::config::standard()).unwrap();
         let (de, _): (Ref, usize) =
             bincode::serde::decode_from_slice(&ser, bincode::config::standard()).unwrap();
 
