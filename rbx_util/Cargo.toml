@@ -27,7 +27,7 @@ name = "rbx-util"
 rbx_binary = { path = "../rbx_binary", features = ["unstable_text_format"] }
 rbx_xml = { path = "../rbx_xml" }
 
-serde_yaml = "0.8.26"
+serde_yaml = "0.9"
 clap = { version = "4.5.54", features = ["derive"] }
 
 fs-err = "2.11.0"

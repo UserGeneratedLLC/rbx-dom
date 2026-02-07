@@ -369,8 +369,9 @@ mod serde_test {
     fn non_human() {
         let value = BrickColor::Cork;
 
-        let ser = bincode::serialize(&value).unwrap();
-        let de: BrickColor = bincode::deserialize(&ser).unwrap();
+        let ser = bincode::serde::encode_to_vec(&value, bincode::config::standard()).unwrap();
+        let (de, _): (BrickColor, usize) =
+            bincode::serde::decode_from_slice(&ser, bincode::config::standard()).unwrap();
 
         assert_eq!(de, value);
     }

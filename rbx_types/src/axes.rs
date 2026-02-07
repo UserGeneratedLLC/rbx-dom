@@ -3,6 +3,7 @@ use std::fmt;
 use crate::lister::Lister;
 
 bitflags::bitflags! {
+    #[derive(Clone, Copy, PartialEq, Eq)]
     struct AxisFlags: u8 {
         const X = 1;
         const Y = 2;
@@ -210,18 +211,21 @@ mod serde_test {
     #[test]
     fn non_human() {
         let empty = Axes::empty();
-        let ser_empty = bincode::serialize(&empty).unwrap();
-        let de_empty = bincode::deserialize(&ser_empty).unwrap();
+        let ser_empty = bincode::serde::encode_to_vec(&empty, bincode::config::standard()).unwrap();
+        let (de_empty, _): (Axes, usize) =
+            bincode::serde::decode_from_slice(&ser_empty, bincode::config::standard()).unwrap();
         assert_eq!(empty, de_empty);
 
         let x = Axes::X;
-        let ser_x = bincode::serialize(&x).unwrap();
-        let de_x = bincode::deserialize(&ser_x).unwrap();
+        let ser_x = bincode::serde::encode_to_vec(&x, bincode::config::standard()).unwrap();
+        let (de_x, _): (Axes, usize) =
+            bincode::serde::decode_from_slice(&ser_x, bincode::config::standard()).unwrap();
         assert_eq!(x, de_x);
 
         let all = Axes::all();
-        let ser_all = bincode::serialize(&all).unwrap();
-        let de_all = bincode::deserialize(&ser_all).unwrap();
+        let ser_all = bincode::serde::encode_to_vec(&all, bincode::config::standard()).unwrap();
+        let (de_all, _): (Axes, usize) =
+            bincode::serde::decode_from_slice(&ser_all, bincode::config::standard()).unwrap();
         assert_eq!(all, de_all);
     }
 }

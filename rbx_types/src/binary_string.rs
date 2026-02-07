@@ -138,8 +138,9 @@ mod serde_test {
     fn non_human() {
         let data = BinaryString::from(b"world".to_vec());
 
-        let ser = bincode::serialize(&data).unwrap();
-        let de: BinaryString = bincode::deserialize(&ser).unwrap();
+        let ser = bincode::serde::encode_to_vec(&data, bincode::config::standard()).unwrap();
+        let (de, _): (BinaryString, usize) =
+            bincode::serde::decode_from_slice(&ser, bincode::config::standard()).unwrap();
 
         assert_eq!(de, data);
     }

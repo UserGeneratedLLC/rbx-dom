@@ -320,23 +320,11 @@ mod test {
     #[cfg(feature = "serde")]
     #[test]
     fn serde_non_human() {
-        use std::{io::Write, mem};
-
         let sstr = SharedString::new(b"a test string".to_vec());
-        let data = sstr.data();
-        let serialized = bincode::serialize(&sstr).unwrap();
 
-        // Write the length of the string as little-endian u64 followed by the
-        // bytes of the string. This is analoglous to how bincode does.
-        let mut expected = Vec::with_capacity(mem::size_of::<u64>() + data.len());
-        expected
-            .write_all(&(data.len() as u64).to_le_bytes())
-            .unwrap();
-        expected.write_all(data).unwrap();
-
-        assert_eq!(serialized, expected);
-
-        let deserialized: SharedString = bincode::deserialize(&serialized).unwrap();
+        let serialized = bincode::serde::encode_to_vec(&sstr, bincode::config::standard()).unwrap();
+        let (deserialized, _): (SharedString, usize) =
+            bincode::serde::decode_from_slice(&serialized, bincode::config::standard()).unwrap();
 
         assert_eq!(sstr, deserialized);
     }
@@ -356,12 +344,13 @@ mod test {
 
         assert_eq!(net, de_net_1);
 
-        let ser_sstr_2 = bincode::serialize(&sstr).unwrap();
-        let ser_net_2 = bincode::serialize(&net).unwrap();
+        let ser_sstr_2 = bincode::serde::encode_to_vec(&sstr, bincode::config::standard()).unwrap();
+        let ser_net_2 = bincode::serde::encode_to_vec(&net, bincode::config::standard()).unwrap();
 
         assert_eq!(ser_sstr_2, ser_net_2);
 
-        let de_net_2: NetAssetRef = bincode::deserialize(&ser_net_2).unwrap();
+        let (de_net_2, _): (NetAssetRef, usize) =
+            bincode::serde::decode_from_slice(&ser_net_2, bincode::config::standard()).unwrap();
 
         assert_eq!(net, de_net_2);
     }

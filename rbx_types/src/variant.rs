@@ -160,9 +160,10 @@ mod serde_test {
     fn non_human() {
         let vec2 = Variant::Vector2(Vector2::new(5.0, 7.0));
 
-        let ser = bincode::serialize(&vec2).unwrap();
+        let ser = bincode::serde::encode_to_vec(&vec2, bincode::config::standard()).unwrap();
 
-        let de: Variant = bincode::deserialize(&ser).unwrap();
+        let (de, _): (Variant, usize) =
+            bincode::serde::decode_from_slice(&ser, bincode::config::standard()).unwrap();
         assert_eq!(de, vec2);
     }
 }
