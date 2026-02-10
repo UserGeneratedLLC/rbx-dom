@@ -100,7 +100,7 @@ fn decode_sstr_chunk(mut chunk: &[u8]) -> DecodedChunk {
 
     for _ in 0..num_entries {
         let _hash: &[u8; 16] = chunk.read_array().unwrap();
-        let data = chunk.read_binary_string().unwrap().to_owned();
+        let data = chunk.read_binary_string().unwrap();
         entries.push(SharedString::new(data));
     }
 

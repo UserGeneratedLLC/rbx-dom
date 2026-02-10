@@ -270,7 +270,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         for _ in 0..num_entries {
             let _hash: &[u8; 16] = chunk.read_array()?; // We don't do anything with the hash.
-            let data = chunk.read_binary_string()?.to_owned();
+            let data = chunk.read_binary_string()?;
             self.shared_strings.push(SharedString::new(data));
         }
 
