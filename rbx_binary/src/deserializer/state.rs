@@ -301,8 +301,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         let start = self.instances.len();
         for (key, referent) in referents.enumerate() {
-            let builder =
-                InstanceBuilder::with_property_capacity(type_name, prop_capacity);
+            let builder = InstanceBuilder::with_property_capacity(type_name, prop_capacity);
             // TODO: assert / error when the ref already exists.
             self.instance_key_by_ref.insert(
                 referent,
