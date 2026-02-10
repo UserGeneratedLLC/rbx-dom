@@ -1,4 +1,4 @@
-use crate::core::{RbxReadExt, RbxWriteInterleaved};
+use crate::core::{RbxReadInterleaved, RbxWriteInterleaved};
 
 #[rustfmt::skip]
 const BYTES_INTERLEAVED: &[u8] = &[

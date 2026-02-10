@@ -302,7 +302,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let start = self.instances.len();
         for (key, referent) in referents.enumerate() {
             let builder =
-                InstanceBuilder::with_property_capacity(type_name.as_str(), prop_capacity);
+                InstanceBuilder::with_property_capacity(type_name, prop_capacity);
             // TODO: assert / error when the ref already exists.
             self.instance_key_by_ref.insert(
                 referent,
@@ -980,7 +980,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             instance,
                             &property,
                             Font {
-                                family,
+                                family: family.to_owned(),
                                 weight,
                                 style,
                                 cached_face_id,
@@ -1198,7 +1198,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         let Some(shared_string) = self.shared_strings.get(value as usize) else {
                             return Err(InnerError::InvalidPropData {
                                 type_name: type_info.type_name.to_string(),
-                                prop_name: prop_name.clone(),
+                                prop_name: prop_name.to_owned(),
                                 valid_value: "a valid SharedString",
                                 actual_value: format!("{value:?}"),
                             });
@@ -1214,7 +1214,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         let Some(shared_string) = self.shared_strings.get(value as usize) else {
                             return Err(InnerError::InvalidPropData {
                                 type_name: type_info.type_name.to_string(),
-                                prop_name: prop_name.clone(),
+                                prop_name: prop_name.to_owned(),
                                 valid_value: "a valid NetAssetRef",
                                 actual_value: format!("{value:?}"),
                             });
