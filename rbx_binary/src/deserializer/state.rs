@@ -269,7 +269,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let num_entries = chunk.read_le_u32()?;
 
         for _ in 0..num_entries {
-            let _hash: &[u8; 16] = chunk.read_array()?; // We don't do anything with the hash.
+            let _hash: &[u8; 16] = ReadSlice::read_array(&mut chunk)?; // We don't do anything with the hash.
             let data = chunk.read_binary_string()?;
             self.shared_strings.push(SharedString::new(data));
         }
@@ -457,7 +457,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                     for instance in instances {
                         let buffer = chunk.read_binary_string()?;
 
-                        let Ok(value) = Tags::decode(buffer.as_ref()) else {
+                        let Ok(value) = Tags::decode(buffer) else {
                             return Err(InnerError::InvalidPropData {
                                 type_name: type_info.type_name.to_string(),
                                 prop_name: prop_name.to_owned(),

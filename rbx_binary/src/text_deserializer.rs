@@ -99,7 +99,7 @@ fn decode_sstr_chunk(mut chunk: &[u8]) -> DecodedChunk {
     let mut entries = Vec::with_capacity(num_entries as usize);
 
     for _ in 0..num_entries {
-        let _hash: &[u8; 16] = chunk.read_array().unwrap();
+        let _hash: &[u8; 16] = ReadSlice::read_array(&mut chunk).unwrap();
         let data = chunk.read_binary_string().unwrap();
         entries.push(SharedString::new(data));
     }
