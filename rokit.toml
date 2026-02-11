@@ -1,0 +1,5 @@
+[tools]
+selene = "Kampfkarren/selene@0.30.0"
+stylua = "JohnnyMorganz/stylua@2.3.1"
+lune = "lune-org/lune@0.10.4"
+run-in-roblox = "rojo-rbx/run-in-roblox@0.3.0"
